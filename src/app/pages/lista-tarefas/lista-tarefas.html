@@ -1,0 +1,36 @@
+<app-menu />
+
+<main class="conteudo">
+  <div class="topo">
+    <h1>Minhas tarefas</h1>
+    <a routerLink="/tarefas/nova" class="botao">+ Nova tarefa</a>
+  </div>
+
+  <input class="pesquisa" type="text" placeholder="Pesquisar tarefa..."
+         [(ngModel)]="textoPesquisa" (input)="carregar()">
+
+  <p class="resumo">{{ pendentes() }} pendentes de {{ tarefas.length }} tarefas</p>
+
+  <p *ngIf="tarefas.length === 0" class="vazio">Nenhuma tarefa encontrada.</p>
+
+  <div class="cartao" *ngFor="let tarefa of tarefas" [ngClass]="{ concluida: tarefa.concluida }">
+    <input type="checkbox" [checked]="tarefa.concluida" (change)="concluir(tarefa.id)">
+
+    <div class="info">
+      <h3>{{ tarefa.titulo }}</h3>
+      <p>{{ tarefa.descricao }}</p>
+      <span class="data">{{ formatarData(tarefa.data) }}</span>
+      <span class="prioridade" [ngClass]="{
+        alta: tarefa.prioridade === 'Alta',
+        media: tarefa.prioridade === 'Média',
+        baixa: tarefa.prioridade === 'Baixa' }">
+        {{ tarefa.prioridade }}
+      </span>
+    </div>
+
+    <div class="acoes">
+      <button (click)="editar(tarefa.id)">Editar</button>
+      <button class="excluir" (click)="excluir(tarefa.id)">Excluir</button>
+    </div>
+  </div>
+</main>
