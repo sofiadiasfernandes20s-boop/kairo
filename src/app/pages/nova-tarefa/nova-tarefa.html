@@ -1,0 +1,28 @@
+<app-menu />
+
+<main class="conteudo">
+  <h1>{{ editando ? 'Editar tarefa' : 'Nova tarefa' }}</h1>
+
+  <form class="formulario" (ngSubmit)="salvar()">
+    <label for="titulo">Título</label>
+    <input id="titulo" name="titulo" type="text" placeholder="Ex.: Estudar Cálculo" [(ngModel)]="tarefa.titulo">
+
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" name="descricao" rows="4" placeholder="Detalhes da tarefa" [(ngModel)]="tarefa.descricao"></textarea>
+
+    <label for="data">Data</label>
+    <input id="data" name="data" type="date" [(ngModel)]="tarefa.data">
+
+    <label for="prioridade">Prioridade</label>
+    <select id="prioridade" name="prioridade" [(ngModel)]="tarefa.prioridade">
+      <option value="Alta">Alta</option>
+      <option value="Média">Média</option>
+      <option value="Baixa">Baixa</option>
+    </select>
+
+    <div class="botoes">
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit">Salvar</button>
+    </div>
+  </form>
+</main>
