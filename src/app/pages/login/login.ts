@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-login',
-  styleUrl: './login.css',
+  imports: [FormsModule],
   templateUrl: './login.html',
+  styleUrl: './login.css'
 })
-export class Login {}
+export class Login {
+  constructor(private router: Router) {}
+
+  entrar(): void {
+    this.router.navigate(['/tarefas']);
+  }
+}
