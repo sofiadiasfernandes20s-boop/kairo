@@ -1,0 +1,120 @@
+:host {
+  position: fixed;
+  inset: 0;
+  font-family: Arial, sans-serif;
+}
+
+.pagina {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: url('../login/img/kairo-fundo-login\ \(1\).png') center / cover no-repeat;
+  background-color: #1E0B3A;
+}
+
+/* ===== Logo ===== */
+.logo {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 120px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+}
+
+.relogio {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin-left: 6px;
+  margin-top: 22px;
+  border: 12px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+}
+
+/* ponteiros */
+.relogio::before,
+.relogio::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: white;
+  border-radius: 4px;
+}
+
+.relogio::before {
+  width: 7px;
+  height: 26px;
+  transform: translate(-50%, -100%);
+}
+
+.relogio::after {
+  width: 20px;
+  height: 7px;
+  transform: translate(0, -50%);
+}
+
+.slogan {
+  margin: 8px 0 0;
+  font-size: 28px;
+  color: white;
+}
+
+/* ===== Formulário ===== */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+}
+
+.formulario h2 {
+  margin: 0 0 24px;
+  font-size: 52px;
+  color: white;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: white;
+}
+
+input {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  color: #1F1B2E;
+}
+
+button {
+  margin-top: 8px;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #7C3AED;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4C1D95;
+}
+
+.cadastro {
+  margin-top: 20px;
+  text-align: center;
+  color: #EDE9FE;
+}
+
+.cadastro a {
+  color: white;
+  font-weight: bold;
+}
