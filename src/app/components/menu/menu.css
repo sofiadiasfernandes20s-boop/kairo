@@ -10,10 +10,16 @@
   font-size: 28px;
   font-weight: 800;
   color: white;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .links a {
-  margin-left: 24px;
   color: #EDE9FE;
   text-decoration: none;
   font-weight: bold;
@@ -21,4 +27,23 @@
 
 .links a.ativo {
   color: #FACC15;
+}
+
+.ola {
+  color: white;
+}
+
+button {
+  padding: 8px 18px;
+  border: 2px solid white;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: white;
+  color: #7C3AED;
 }

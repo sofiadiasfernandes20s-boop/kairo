@@ -1,8 +1,10 @@
 <nav class="menu">
-  <span class="logo">Kairo</span>
+  <a routerLink="/tarefas" class="logo">Kairo</a>
   <div class="links">
     <a routerLink="/tarefas" routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }">Tarefas</a>
     <a routerLink="/tarefas/nova" routerLinkActive="ativo">Nova tarefa</a>
-    <a routerLink="/login">Sair</a>
+    <a routerLink="/dashboard" routerLinkActive="ativo">Dashboard</a>
+    <span class="ola">Olá, {{ nome }}</span>
+    <button type="button" (click)="sair()">Sair</button>
   </div>
 </nav>

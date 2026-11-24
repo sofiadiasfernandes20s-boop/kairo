@@ -9,11 +9,15 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: url('../login/img/kairo-fundo-login\ \(1\).png') center / cover no-repeat;
+  background: url('/kairo-fundo-login.png') center / cover no-repeat;
   background-color: #1E0B3A;
 }
 
 /* ===== Logo ===== */
+.marca {
+  max-width: 520px;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -60,7 +64,7 @@
 
 .slogan {
   margin: 8px 0 0;
-  font-size: 28px;
+  font-size: 26px;
   color: white;
 }
 
@@ -84,16 +88,39 @@ label {
 }
 
 input {
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   padding: 16px 20px;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 30px;
   font-size: 16px;
   color: #1F1B2E;
 }
 
+input + label,
+.erro + label {
+  margin-top: 14px;
+}
+
+input.invalido {
+  border-color: #F87171;
+}
+
+.erro {
+  margin: 0 0 6px 12px;
+  color: #FECACA;
+  font-weight: bold;
+}
+
+.alerta {
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: #FEE2E2;
+  color: #B91C1C;
+  text-align: center;
+}
+
 button {
-  margin-top: 8px;
+  margin-top: 18px;
   padding: 16px;
   border: none;
   border-radius: 30px;
@@ -106,6 +133,11 @@ button {
 
 button:hover {
   background: #4C1D95;
+}
+
+button:disabled {
+  background: #A78BFA;
+  cursor: not-allowed;
 }
 
 .cadastro {

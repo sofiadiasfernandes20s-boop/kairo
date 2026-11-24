@@ -1,0 +1,32 @@
+<app-menu />
+
+<main class="conteudo">
+  <a routerLink="/tarefas" class="voltar">← Voltar para a lista</a>
+
+  <p *ngIf="erro" class="alerta">{{ erro }}</p>
+
+  <section class="cartao" *ngIf="tarefa">
+    <div class="cabecalho">
+      <h1 [class.feita]="tarefa.concluida">{{ tarefa.titulo }}</h1>
+      <span class="status" [ngClass]="tarefa.concluida ? 'ok' : 'pendente'">
+        {{ tarefa.concluida ? 'Concluída' : 'Pendente' }}
+      </span>
+    </div>
+
+    <p class="descricao">{{ tarefa.descricao || 'Sem descrição.' }}</p>
+
+    <div class="grade">
+      <div><span>Data</span><strong>{{ tarefasService.formatarData(tarefa.data) }}</strong></div>
+      <div><span>Horário</span><strong>{{ tarefa.horario }}</strong></div>
+      <div><span>Duração</span><strong>{{ tarefasService.formatarDuracao(tarefa.duracao) }}</strong></div>
+      <div><span>Categoria</span><strong>{{ tarefa.categoria }}</strong></div>
+      <div><span>Prioridade</span><strong>{{ tarefa.prioridade }}</strong></div>
+    </div>
+
+    <div class="botoes">
+      <button type="button" (click)="concluir()">{{ tarefa.concluida ? 'Marcar como pendente' : 'Marcar como concluída' }}</button>
+      <a class="secundario" [routerLink]="['/tarefas/editar', tarefa.id]">Editar</a>
+      <button type="button" class="excluir" (click)="excluir()">Excluir</button>
+    </div>
+  </section>
+</main>

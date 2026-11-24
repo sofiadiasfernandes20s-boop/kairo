@@ -6,20 +6,35 @@
     <a routerLink="/tarefas/nova" class="botao">+ Nova tarefa</a>
   </div>
 
-  <input class="pesquisa" type="text" placeholder="Pesquisar tarefa..."
-         [(ngModel)]="textoPesquisa" (input)="carregar()">
+  <form class="filtros" [formGroup]="filtros" (ngSubmit)="carregar()">
+    <input class="pesquisa" type="text" placeholder="Pesquisar tarefa..." formControlName="texto">
 
-  <p class="resumo">{{ pendentes() }} pendentes de {{ tarefas.length }} tarefas</p>
+    <select formControlName="categoria">
+      <option value="">Todas as categorias</option>
+      <option *ngFor="let c of tarefasService.categorias" [value]="c">{{ c }}</option>
+    </select>
+  </form>
 
-  <p *ngIf="tarefas.length === 0" class="vazio">Nenhuma tarefa encontrada.</p>
+  <div class="abas">
+    <button type="button" [class.ativa]="status === 'todas'" (click)="mudarStatus('todas')">Todas</button>
+    <button type="button" [class.ativa]="status === 'pendentes'" (click)="mudarStatus('pendentes')">Pendentes</button>
+    <button type="button" [class.ativa]="status === 'concluidas'" (click)="mudarStatus('concluidas')">Concluídas</button>
+  </div>
+
+  <p class="resumo" *ngIf="!carregando && !erro">{{ pendentes() }} pendentes de {{ tarefas.length }} tarefas</p>
+
+  <p *ngIf="carregando" class="vazio">Carregando...</p>
+  <p *ngIf="erro" class="alerta">{{ erro }}</p>
+  <p *ngIf="!carregando && !erro && tarefas.length === 0" class="vazio">Nenhuma tarefa encontrada.</p>
 
   <div class="cartao" *ngFor="let tarefa of tarefas" [ngClass]="{ concluida: tarefa.concluida }">
-    <input type="checkbox" [checked]="tarefa.concluida" (change)="concluir(tarefa.id)">
+    <input type="checkbox" [checked]="tarefa.concluida" (change)="concluir(tarefa)" title="Marcar como concluída">
 
-    <div class="info">
+    <div class="info" (click)="abrir(tarefa.id)">
       <h3>{{ tarefa.titulo }}</h3>
       <p>{{ tarefa.descricao }}</p>
-      <span class="data">{{ formatarData(tarefa.data) }}</span>
+      <span class="data">{{ tarefasService.formatarData(tarefa.data) }} · {{ tarefa.horario }} · {{ tarefasService.formatarDuracao(tarefa.duracao) }}</span>
+      <span class="etiqueta">{{ tarefa.categoria }}</span>
       <span class="prioridade" [ngClass]="{
         alta: tarefa.prioridade === 'Alta',
         media: tarefa.prioridade === 'Média',
@@ -30,7 +45,7 @@
 
     <div class="acoes">
       <button (click)="editar(tarefa.id)">Editar</button>
-      <button class="excluir" (click)="excluir(tarefa.id)">Excluir</button>
+      <button class="excluir" (click)="excluir(tarefa)">Excluir</button>
     </div>
   </div>
 </main>

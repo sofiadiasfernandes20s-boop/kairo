@@ -1,0 +1,38 @@
+<div class="pagina">
+
+  <div class="marca">
+    <h1 class="logo">Kair<span class="relogio"></span></h1>
+    <p class="slogan">Crie sua conta e organize sua rotina no seu tempo.</p>
+  </div>
+
+  <form class="formulario" [formGroup]="form" (ngSubmit)="cadastrar()" novalidate>
+    <h2>Criar conta</h2>
+
+    <label for="nome">Nome</label>
+    <input id="nome" type="text" formControlName="nome" placeholder="Seu nome" [class.invalido]="campoInvalido('nome')">
+    <small class="erro" *ngIf="campoInvalido('nome')">Digite seu nome (mínimo 3 letras).</small>
+
+    <label for="email">E-mail</label>
+    <input id="email" type="email" formControlName="email" placeholder="seuemail@email.com" [class.invalido]="campoInvalido('email')">
+    <small class="erro" *ngIf="campoInvalido('email') && form.controls.email.errors?.['required']">Digite seu e-mail.</small>
+    <small class="erro" *ngIf="campoInvalido('email') && form.controls.email.errors?.['email']">E-mail inválido.</small>
+
+    <label for="senha">Senha</label>
+    <input id="senha" type="password" formControlName="senha" placeholder="Mínimo 6 caracteres" [class.invalido]="campoInvalido('senha')">
+    <small class="erro" *ngIf="campoInvalido('senha')">A senha precisa ter no mínimo 6 caracteres.</small>
+
+    <label for="confirmarSenha">Confirmar senha</label>
+    <input id="confirmarSenha" type="password" formControlName="confirmarSenha" placeholder="Repita a senha"
+           [class.invalido]="campoInvalido('confirmarSenha') || senhasDiferentes()">
+    <small class="erro" *ngIf="campoInvalido('confirmarSenha')">Confirme sua senha.</small>
+    <small class="erro" *ngIf="senhasDiferentes()">As senhas não são iguais.</small>
+
+    <p class="alerta" *ngIf="erro">{{ erro }}</p>
+    <p class="ok" *ngIf="sucesso">{{ sucesso }}</p>
+
+    <button type="submit" [disabled]="form.invalid || enviando">{{ enviando ? 'Salvando...' : 'Cadastrar' }}</button>
+
+    <p class="cadastro">Já tem conta? <a routerLink="/login">Entrar</a></p>
+  </form>
+
+</div>

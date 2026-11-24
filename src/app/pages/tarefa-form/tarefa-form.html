@@ -1,0 +1,62 @@
+<app-menu />
+
+<main class="conteudo">
+  <h1>{{ editando ? 'Editar tarefa' : 'Nova tarefa' }}</h1>
+
+  <form class="formulario" [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+    <label for="titulo">Título *</label>
+    <input id="titulo" type="text" formControlName="titulo" placeholder="Ex.: Estudar Cálculo" [class.invalido]="campoInvalido('titulo')">
+    <small class="erro" *ngIf="temErro('titulo', 'required') || temErro('titulo', 'espacos')">O título é obrigatório.</small>
+    <small class="erro" *ngIf="temErro('titulo', 'minlength')">O título precisa ter no mínimo 3 caracteres.</small>
+    <small class="erro" *ngIf="temErro('titulo', 'maxlength')">O título pode ter no máximo 60 caracteres.</small>
+
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" rows="3" formControlName="descricao" placeholder="Detalhes da tarefa" [class.invalido]="campoInvalido('descricao')"></textarea>
+    <small class="contador">{{ form.controls.descricao.value.length }}/200</small>
+    <small class="erro" *ngIf="temErro('descricao', 'maxlength')">A descrição pode ter no máximo 200 caracteres.</small>
+
+    <div class="linha">
+      <div class="campo">
+        <label for="data">Data *</label>
+        <input id="data" type="date" formControlName="data" [class.invalido]="campoInvalido('data')">
+        <small class="erro" *ngIf="campoInvalido('data')">Escolha a data.</small>
+      </div>
+      <div class="campo">
+        <label for="horario">Horário *</label>
+        <input id="horario" type="time" formControlName="horario" [class.invalido]="campoInvalido('horario')">
+        <small class="erro" *ngIf="campoInvalido('horario')">Escolha o horário.</small>
+      </div>
+      <div class="campo">
+        <label for="duracao">Duração (min) *</label>
+        <input id="duracao" type="number" formControlName="duracao" [class.invalido]="campoInvalido('duracao')">
+        <small class="erro" *ngIf="temErro('duracao', 'required')">Digite a duração.</small>
+        <small class="erro" *ngIf="temErro('duracao', 'min') || temErro('duracao', 'max')">Entre 5 e 600 minutos.</small>
+      </div>
+    </div>
+
+    <div class="linha">
+      <div class="campo">
+        <label for="categoria">Categoria *</label>
+        <select id="categoria" formControlName="categoria" [class.invalido]="campoInvalido('categoria')">
+          <option value="" disabled>Escolha</option>
+          <option *ngFor="let c of tarefasService.categorias" [value]="c">{{ c }}</option>
+        </select>
+        <small class="erro" *ngIf="campoInvalido('categoria')">Escolha uma categoria.</small>
+      </div>
+      <div class="campo">
+        <label for="prioridade">Prioridade *</label>
+        <select id="prioridade" formControlName="prioridade">
+          <option *ngFor="let p of tarefasService.prioridades" [value]="p">{{ p }}</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="alerta" *ngIf="erro">{{ erro }}</p>
+    <p class="aviso" *ngIf="form.invalid && form.touched">Preencha os campos obrigatórios (*) corretamente para salvar.</p>
+
+    <div class="botoes">
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit" [disabled]="form.invalid || enviando">{{ enviando ? 'Salvando...' : 'Salvar' }}</button>
+    </div>
+  </form>
+</main>

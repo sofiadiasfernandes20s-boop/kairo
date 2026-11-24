@@ -1,0 +1,31 @@
+<app-menu />
+
+<main class="conteudo">
+  <h1>Dashboard</h1>
+
+  <p *ngIf="erro" class="alerta">{{ erro }}</p>
+
+  <ng-container *ngIf="resumo">
+    <div class="cards">
+      <div class="card"><span>Tarefas</span><strong>{{ resumo.total }}</strong></div>
+      <div class="card"><span>Concluídas</span><strong>{{ resumo.concluidas }}</strong></div>
+      <div class="card"><span>Pendentes</span><strong>{{ resumo.pendentes }}</strong></div>
+      <div class="card destaque"><span>Horas concluídas</span><strong>{{ tarefasService.formatarDuracao(resumo.minutosConcluidos) }}</strong></div>
+    </div>
+
+    <section class="painel">
+      <h2>Progresso das tarefas</h2>
+      <div class="barra"><div class="preenchido" [style.width.%]="resumo.percentual"></div></div>
+      <p>{{ resumo.percentual }}% concluído · {{ tarefasService.formatarDuracao(resumo.minutosPlanejados) }} planejadas</p>
+    </section>
+
+    <section class="painel">
+      <h2>Tempo por categoria</h2>
+      <div class="categoria" *ngFor="let c of resumo.porCategoria">
+        <span class="nome">{{ c.categoria }}</span>
+        <div class="trilho"><div class="valor" [style.width.%]="largura(c.minutos)"></div></div>
+        <span class="horas">{{ tarefasService.formatarDuracao(c.minutos) }} ({{ c.quantidade }})</span>
+      </div>
+    </section>
+  </ng-container>
+</main>

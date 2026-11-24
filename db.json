@@ -1,0 +1,12 @@
+{
+  "usuarios": [
+    { "id": 1, "nome": "Sofia Dias", "email": "sofia@kairo.com", "senha": "123456" }
+  ],
+  "tarefas": [
+    { "id": 1, "titulo": "Estudar Cálculo 2", "descricao": "Revisar integrais duplas e fazer a lista de exercícios.", "data": "2026-11-12", "horario": "07:30", "duracao": 90, "categoria": "Estudo", "prioridade": "Alta", "concluida": false },
+    { "id": 2, "titulo": "Academia", "descricao": "Treino de pernas.", "data": "2026-11-12", "horario": "12:30", "duracao": 120, "categoria": "Saúde", "prioridade": "Média", "concluida": true },
+    { "id": 3, "titulo": "Gravar vídeos", "descricao": "Gravação das 15h às 16h30.", "data": "2026-11-12", "horario": "15:00", "duracao": 90, "categoria": "Trabalho", "prioridade": "Alta", "concluida": false },
+    { "id": 4, "titulo": "Projeto Kairo", "descricao": "Implementar os formulários reativos do Trabalho Final.", "data": "2026-11-13", "horario": "09:15", "duracao": 90, "categoria": "Estudo", "prioridade": "Alta", "concluida": false },
+    { "id": 5, "titulo": "Ler 10 páginas", "descricao": "Leitura antes de dormir.", "data": "2026-11-13", "horario": "23:30", "duracao": 20, "categoria": "Pessoal", "prioridade": "Baixa", "concluida": false }
+  ]
+}

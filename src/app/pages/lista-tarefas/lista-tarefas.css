@@ -1,5 +1,5 @@
 .conteudo {
-  max-width: 800px;
+  max-width: 860px;
   margin: 40px auto;
   padding: 0 20px;
 }
@@ -23,13 +23,44 @@ h1 {
   font-weight: bold;
 }
 
+.filtros {
+  display: flex;
+  gap: 12px;
+}
+
 .pesquisa {
-  width: 100%;
+  flex: 1;
+}
+
+.pesquisa,
+select {
   box-sizing: border-box;
   padding: 14px 20px;
   border: 2px solid #EDE9FE;
   border-radius: 30px;
   font-size: 16px;
+  background: white;
+}
+
+.abas {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.abas button {
+  padding: 8px 18px;
+  border: 2px solid #7C3AED;
+  border-radius: 20px;
+  background: white;
+  color: #7C3AED;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.abas button.ativa {
+  background: #7C3AED;
+  color: white;
 }
 
 .resumo {
@@ -40,6 +71,13 @@ h1 {
 .vazio {
   text-align: center;
   color: gray;
+}
+
+.alerta {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #FEE2E2;
+  color: #B91C1C;
 }
 
 .cartao {
@@ -53,6 +91,12 @@ h1 {
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
 }
 
+.cartao input[type='checkbox'] {
+  width: 22px;
+  height: 22px;
+  accent-color: #7C3AED;
+}
+
 .cartao.concluida h3 {
   text-decoration: line-through;
   color: gray;
@@ -60,6 +104,7 @@ h1 {
 
 .info {
   flex: 1;
+  cursor: pointer;
 }
 
 .info h3 {
@@ -78,11 +123,18 @@ h1 {
   color: #7C3AED;
 }
 
+.etiqueta,
 .prioridade {
+  margin-right: 6px;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
+}
+
+.etiqueta {
+  background: #EDE9FE;
+  color: #5B21B6;
 }
 
 .alta { background: #FEE2E2; color: #B91C1C; }
@@ -91,7 +143,7 @@ h1 {
 
 .acoes button {
   margin-left: 8px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: none;
   border-radius: 20px;
   background: #EDE9FE;
@@ -100,7 +152,7 @@ h1 {
   cursor: pointer;
 }
 
-.acoes .excluir {
+.acoes button.excluir {
   background: #FEE2E2;
   color: #B91C1C;
 }

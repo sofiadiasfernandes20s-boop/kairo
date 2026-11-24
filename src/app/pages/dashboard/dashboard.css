@@ -1,0 +1,104 @@
+.conteudo {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+h1, h2 {
+  color: #1F1B2E;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.alerta {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+}
+
+.card span {
+  color: #7C3AED;
+}
+
+.card strong {
+  margin-top: 6px;
+  font-size: 32px;
+  color: #1F1B2E;
+}
+
+.card.destaque {
+  background: #7C3AED;
+}
+
+.card.destaque span,
+.card.destaque strong {
+  color: white;
+}
+
+.painel {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+}
+
+.barra,
+.trilho {
+  height: 16px;
+  border-radius: 10px;
+  background: #EDE9FE;
+  overflow: hidden;
+}
+
+.preenchido {
+  height: 100%;
+  background: #FACC15;
+}
+
+.categoria {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.nome {
+  width: 90px;
+  font-weight: bold;
+  color: #1F1B2E;
+}
+
+.trilho {
+  flex: 1;
+}
+
+.valor {
+  height: 100%;
+  background: #7C3AED;
+}
+
+.horas {
+  width: 110px;
+  text-align: right;
+  color: #555;
+}

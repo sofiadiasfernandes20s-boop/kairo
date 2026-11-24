@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { Menu } from '../../components/menu/menu';
 import { Tarefa } from '../../models/tarefa';
@@ -8,46 +9,75 @@ import { TarefasService } from '../../services/tarefas.service';
 
 @Component({
   selector: 'app-lista-tarefas',
-  imports: [CommonModule, FormsModule, RouterLink, Menu],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, Menu],
   templateUrl: './lista-tarefas.html',
   styleUrl: './lista-tarefas.css'
 })
 export class ListaTarefas implements OnInit {
   tarefas: Tarefa[] = [];
-  textoPesquisa = '';
+  status = 'todas';
+  carregando = true;
+  erro = '';
 
-  constructor(private tarefasService: TarefasService, private router: Router) {}
+  // Formulário reativo de pesquisa e filtro
+  filtros;
+
+  constructor(
+    private fb: FormBuilder,
+    public tarefasService: TarefasService,
+    private router: Router
+  ) {
+    this.filtros = this.fb.nonNullable.group({
+      texto: [''],
+      categoria: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.carregar();
+    // Pesquisa automática quando o usuário digita ou troca a categoria
+    this.filtros.valueChanges.pipe(debounceTime(300)).subscribe(() => this.carregar());
   }
 
   carregar(): void {
-    this.tarefas = this.tarefasService.pesquisar(this.textoPesquisa);
+    this.erro = '';
+    const { texto, categoria } = this.filtros.getRawValue();
+    this.tarefasService.pesquisar(texto, categoria, this.status).subscribe({
+      next: tarefas => {
+        this.tarefas = tarefas;
+        this.carregando = false;
+      },
+      error: () => {
+        this.erro = 'Não foi possível carregar as tarefas. Confira se o JSON-Server está rodando (npm run api).';
+        this.carregando = false;
+      }
+    });
+  }
+
+  mudarStatus(status: string): void {
+    this.status = status;
+    this.carregar();
   }
 
   pendentes(): number {
     return this.tarefas.filter(t => !t.concluida).length;
   }
 
-  concluir(id: number): void {
-    this.tarefasService.alternarConcluida(id);
-    this.carregar();
+  concluir(tarefa: Tarefa): void {
+    this.tarefasService.alternarConcluida(tarefa).subscribe(() => this.carregar());
   }
 
-  editar(id: number): void {
+  abrir(id?: number): void {
+    this.router.navigate(['/tarefas', id]);
+  }
+
+  editar(id?: number): void {
     this.router.navigate(['/tarefas/editar', id]);
   }
 
-  excluir(id: number): void {
-    if (confirm('Deseja excluir esta tarefa?')) {
-      this.tarefasService.excluir(id);
-      this.carregar();
+  excluir(tarefa: Tarefa): void {
+    if (tarefa.id && confirm(`Deseja excluir a tarefa "${tarefa.titulo}"?`)) {
+      this.tarefasService.excluir(tarefa.id).subscribe(() => this.carregar());
     }
-  }
-
-  formatarData(data: string): string {
-    const [ano, mes, dia] = data.split('-');
-    return `${dia}/${mes}/${ano}`;
   }
 }

@@ -8,20 +8,28 @@
     <p class="slogan">O primeiro passo para o seu dia ideal começa aqui.</p>
   </div>
 
-  <!-- Lado direito: formulário -->
-<form class="formulario" (ngSubmit)="entrar()">
+  <!-- Lado direito: formulário reativo -->
+  <form class="formulario" [formGroup]="form" (ngSubmit)="entrar()" novalidate>
     <h2>Entrar</h2>
 
     <label for="email">E-mail</label>
-    <input id="email" type="email" placeholder="email@email.com">
+    <input id="email" type="email" formControlName="email" placeholder="seuemail@email.com"
+           [class.invalido]="campoInvalido('email')">
+    <small class="erro" *ngIf="campoInvalido('email') && form.controls.email.errors?.['required']">Digite seu e-mail.</small>
+    <small class="erro" *ngIf="campoInvalido('email') && form.controls.email.errors?.['email']">E-mail inválido. Ex.: nome&#64;email.com</small>
 
     <label for="senha">Senha</label>
-    <input id="senha" type="password" placeholder="Digite sua senha">
+    <input id="senha" type="password" formControlName="senha" placeholder="Digite sua senha"
+           [class.invalido]="campoInvalido('senha')">
+    <small class="erro" *ngIf="campoInvalido('senha') && form.controls.senha.errors?.['required']">Digite sua senha.</small>
+    <small class="erro" *ngIf="campoInvalido('senha') && form.controls.senha.errors?.['minlength']">A senha tem no mínimo 6 caracteres.</small>
 
-    <button type="submit">Entrar</button>
+    <p class="alerta" *ngIf="erro">{{ erro }}</p>
+
+    <button type="submit" [disabled]="form.invalid || enviando">{{ enviando ? 'Entrando...' : 'Entrar' }}</button>
 
     <p class="cadastro">
-      Não tem conta? <a href="#">Cadastrar</a>
+      Não tem conta? <a routerLink="/cadastro">Cadastrar</a>
     </p>
   </form>
 
